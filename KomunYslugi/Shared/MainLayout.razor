@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using KomunYslugi.Data
+@inherits LayoutComponentBase
+@inject UserService UserService
 
 <PageTitle>KomunYslugi</PageTitle>
 
@@ -9,8 +11,15 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="">Registration</a>
-            <a href="">Authorization</a>
+            @if (!UserService.authorizationCheck)
+            {
+                <a href="authorization">Authorization</a>
+                <a href="registration">Registration</a>
+            }
+            else
+            {
+                @*<a href="profil">@UserService.user</a>*@
+            }
         </div>
 
         <article class="content px-4">

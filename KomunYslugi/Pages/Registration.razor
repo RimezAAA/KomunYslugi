@@ -1,0 +1,125 @@
+﻿@page "/registration"
+<section class="vh-100" style="background-color: #2779e2;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-9">
+
+        <h1 class="text-white mb-4">Registration</h1>
+
+        <form>
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body">
+
+                <select @bind="@selectStr">
+                    <option value="Customer">Customer</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Developer">Developer</option>
+                </select>
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+              <div class="col-md-3 ps-5">
+
+                <h6 class="mb-0">Full name</h6>
+
+              </div>
+              <div class="col-md-9 pe-5">
+
+                <input type="text" class="form-control form-control-lg" required />
+
+              </div>
+            </div>
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center py-3">
+              <div class="col-md-3 ps-5">
+
+                <h6 class="mb-0">Email address</h6>
+
+              </div>
+              <div class="col-md-9 pe-5">
+
+                <input type="email" class="form-control form-control-lg" placeholder="example@example.com" required />
+
+              </div>
+            </div>
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center py-3">
+              <div class="col-md-3 ps-5">
+
+                <h6 class="mb-0">Phone Number</h6>
+
+              </div>
+              <div class="col-md-9 pe-5">
+
+                <input type="tel" class="form-control form-control-lg" placeholder="8-999-999-99-99" name="telephone" pattern="[8]{1}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" required />
+
+              </div>
+            </div>
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+              <div class="col-md-3 ps-5">
+
+                <h6 class="mb-0">Login</h6>
+
+              </div>
+              <div class="col-md-9 pe-5">
+
+                <input type="text" class="form-control form-control-lg" required />
+
+              </div>
+            </div>
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+              <div class="col-md-3 ps-5">
+
+                <h6 class="mb-0">Password</h6>
+
+              </div>
+              <div class="col-md-9 pe-5">
+
+                <input type="Password" class="form-control form-control-lg" required />
+
+              </div>
+            </div>
+
+            @if (selectStr=="Customer")
+            {
+                <hr class="mx-n3">
+
+                <div class="row align-items-center pt-4 pb-3">
+                 <div class="col-md-3 ps-5">
+                    <select @bind="@selectStr">
+                        <option value="Customer">Газификация</option>
+                        <option value="Designer">Водосноснобжение</option>
+                    </select>
+                 </div>
+                </div>
+            }
+
+            <hr class="mx-n3">
+
+            <div class="px-5 py-4">
+              <button type="submit" class="btn btn-primary btn-lg">Send application</button>
+            </div>
+
+          </div>
+        </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+@code {
+    public string selectStr = "Customer";
+}
