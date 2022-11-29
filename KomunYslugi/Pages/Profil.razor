@@ -44,13 +44,89 @@
             {
                 <div class="row align-items-center pt-4 pb-3">
                     <h6 class="mb-0">Department: @userService.user.Department</h6>
-                </div>         
+                </div>        
+                
+                <hr class="mx-n3">
             }
 
-            <hr class="mx-n3">
+            @if ((userService.user.UserType == "Designer" || userService.user.UserType == "Developer") && userService.user.IsCheck)
+            {
+                @if (userService.user.UserType == "Developer")
+                {
+                    <div class="row align-items-center pt-4 pb-3">
+                        <h6 class="mb-0">Developer Name: @userService.user.DeveloperName</h6>
+                    </div>                                  
+
+                    <hr class="mx-n3">                            
+                }
+
+                @if (userService.user.UserType == "Developer")
+                {
+                    <div class="row align-items-center pt-4 pb-3">
+                        <h6 class="mb-0">Full Name Head: @userService.user.FullNameHead</h6>
+                    </div>                                  
+
+                    <hr class="mx-n3">                            
+                }
+
+                @if (userService.user.UserType == "Designer")
+                {
+                    <div class="row align-items-center pt-4 pb-3">
+                        <h6 class="mb-0">Designer Name: @userService.user.DesignerName</h6>
+                    </div>                                  
+
+                    <hr class="mx-n3">                            
+                }
+
+                @if (userService.user.UserType == "Designer")
+                {
+                    <div class="row align-items-center pt-4 pb-3">
+                        <h6 class="mb-0">Full Name Director: @userService.user.FullNameDirector</h6>
+                    </div>                                   
+
+                    <hr class="mx-n3">                            
+                }
+
+                @if (userService.user.UserType == "Designer")
+                {
+                    <div class="row align-items-center pt-4 pb-3">
+                        <h6 class="mb-0">Chief Project Engineer: @userService.user.ChiefProjectEngineer</h6>
+                    </div>                                  
+
+                    <hr class="mx-n3">                            
+                }
+
+                <div class="row align-items-center pt-4 pb-3">
+                   <h6 class="mb-0">OGRN: @userService.user.OGRN</h6>
+                </div>                               
+
+                <hr class="mx-n3">
+
+                <div class="row align-items-center pt-4 pb-3">
+                   <h6 class="mb-0">INN: @userService.user.INN</h6>
+                </div>                                    
+
+                <hr class="mx-n3">
+
+                <div class="row align-items-center pt-4 pb-3">
+                   <h6 class="mb-0">KPP: @userService.user.KPP</h6>
+                </div>                                   
+
+                <hr class="mx-n3">
+
+                <div class="row align-items-center pt-4 pb-3">
+                   <h6 class="mb-0">Address: @userService.user.Address</h6>
+                </div>                                   
+
+                <hr class="mx-n3">                            
+            }
 
             <button type="submit" class="btn btn-primary btn-lg" @onclick="@LogOut">Log out</button>
             <button type="submit" class="btn btn-primary btn-lg" @onclick="@Edit">Edit</button>
+            @if ((userService.user.UserType == "Designer" || userService.user.UserType == "Developer") && !userService.user.IsCheck)
+            {
+                <button type="submit" class="btn btn-primary btn-lg" @onclick="@FillingData">Fill Data</button>                
+            }
 
           </div>
         </div>
@@ -69,5 +145,9 @@
     public void Edit()
     {
         NavigationManager.NavigateTo("/edit");
+    }
+    public void FillingData()
+    {
+        NavigationManager.NavigateTo("/fillData");
     }
 }

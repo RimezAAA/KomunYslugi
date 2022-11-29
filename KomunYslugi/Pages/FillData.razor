@@ -1,0 +1,179 @@
+﻿@using KomunYslugi.Data
+@page "/fillData"
+@inject UserService userService
+@inject NavigationManager NavigationManager
+
+<section class="vh-100" style="background-color: #2779e2;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-9">
+
+        <h1 class="text-white mb-4">Profil</h1>
+
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body">
+
+            @if (userService.user.UserType == "Developer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <h6 class="mb-0">Developer Name:</h6>
+                </div>  
+
+                <div class="row align-items-center pt-4 pb-3">
+                    <input type="text" class="form-control form-control-lg" @bind-value="@DeveloperName"/>
+                </div>                                    
+
+                <hr class="mx-n3">                            
+            }
+
+            @if (userService.user.UserType == "Developer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <h6 class="mb-0">Full Name Head:</h6>
+                </div>  
+
+                <div class="row align-items-center pt-4 pb-3">
+                    <input type="text" class="form-control form-control-lg" @bind-value="@FullNameHead"/>
+                </div>                                    
+
+                <hr class="mx-n3">                            
+            }
+
+            @if (userService.user.UserType == "Designer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <h6 class="mb-0">Designer Name:</h6>
+                </div>  
+
+                <div class="row align-items-center pt-4 pb-3">
+                    <input type="text" class="form-control form-control-lg" @bind-value="@DesignerName"/>
+                </div>                                    
+
+                <hr class="mx-n3">                            
+            }
+
+            @if (userService.user.UserType == "Designer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <h6 class="mb-0">Full Name Director:</h6>
+                </div>  
+
+                <div class="row align-items-center pt-4 pb-3">
+                    <input type="text" class="form-control form-control-lg" @bind-value="@FullNameDirector"/>
+                </div>                                    
+
+                <hr class="mx-n3">                            
+            }
+
+            @if (userService.user.UserType == "Designer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <h6 class="mb-0">Chief Project Engineer:</h6>
+                </div>  
+
+                <div class="row align-items-center pt-4 pb-3">
+                    <input type="text" class="form-control form-control-lg" @bind-value="@ChiefProjectEngineer"/>
+                </div>                                    
+
+                <hr class="mx-n3">                            
+            }
+
+            <div class="row align-items-center pt-4 pb-3">
+               <h6 class="mb-0">OGRN:</h6>
+            </div>  
+
+            <div class="row align-items-center pt-4 pb-3">
+                <input type="number" class="form-control form-control-lg" @bind-value="@OGRN"/>
+            </div>                                    
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+               <h6 class="mb-0">INN:</h6>
+            </div>  
+
+            <div class="row align-items-center pt-4 pb-3">
+                <input type="number" class="form-control form-control-lg" @bind-value="@INN"/>
+            </div>                                    
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+               <h6 class="mb-0">KPP:</h6>
+            </div>  
+
+            <div class="row align-items-center pt-4 pb-3">
+                <input type="number" class="form-control form-control-lg" @bind-value="@KPP"/>
+            </div>                                    
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+               <h6 class="mb-0">Address:</h6>
+            </div>  
+
+            <div class="row align-items-center pt-4 pb-3">
+                <input type="text" class="form-control form-control-lg" @bind-value="@Address"/>
+            </div>                                    
+
+            <hr class="mx-n3">
+            
+
+            <button type="submit" class="btn btn-primary btn-lg" @onclick="@Confirm">Confirm</button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+@code {
+    public string DeveloperName = "";
+    public string FullNameHead = "";
+
+    public string DesignerName = "";
+    public string FullNameDirector = "";
+    public string ChiefProjectEngineer = "";
+
+    public int OGRN = 0;
+    public int INN = 0;
+    public int KPP = 0;
+    public string Address = "";
+
+    public void Confirm()
+    {
+        if (OGRN > 0 && INN > 0 && KPP > 0 && Address != "")
+        {
+            if (userService.user.UserType == "Developer" && DeveloperName != "" && FullNameHead != "")
+            {
+                userService.user.DeveloperName = DeveloperName;
+                userService.user.FullNameHead = FullNameHead;
+                userService.user.OGRN = OGRN;
+                userService.user.INN = INN;
+                userService.user.KPP = KPP;
+                userService.user.Address = Address;
+
+                userService.user.IsCheck = true;
+                MongoExamples.ReplaceByName(userService.user.Login, userService.user);
+                NavigationManager.NavigateTo("/profil");
+            }
+            else if (userService.user.UserType == "Designer" && DesignerName != "" && FullNameDirector != "" && ChiefProjectEngineer != "")
+            {
+                userService.user.DesignerName = DesignerName;
+                userService.user.FullNameDirector = FullNameDirector;
+                userService.user.ChiefProjectEngineer = ChiefProjectEngineer;
+                userService.user.OGRN = OGRN;
+                userService.user.INN = INN;
+                userService.user.KPP = KPP;
+                userService.user.Address = Address;
+
+                userService.user.IsCheck = true;
+                MongoExamples.ReplaceByName(userService.user.Login, userService.user);
+                NavigationManager.NavigateTo("/profil");
+            }
+        }
+        
+    }
+}

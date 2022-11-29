@@ -24,8 +24,8 @@ namespace KomunYslugi.Data
         public static void ReplaceByName(string login, User user)
         {
             var client = new MongoClient();
-            var database = client.GetDatabase("UsersDataBaseArt");
-            var collection = database.GetCollection<User>("Users");
+            var database = client.GetDatabase("KomUslugi");
+            var collection = database.GetCollection<User>("User");
             collection.ReplaceOne(x => x.Login == login, user);
         }
     }
