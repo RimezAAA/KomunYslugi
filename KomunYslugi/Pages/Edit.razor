@@ -1,0 +1,107 @@
+﻿@using KomunYslugi.Data
+@page "/edit"
+@inject UserService userService
+@inject NavigationManager NavigationManager
+
+<section class="vh-100" style="background-color: #2779e2;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-9">
+
+        <h1 class="text-white mb-4">Profil</h1>
+
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body">
+
+            @if (userService.user.UserType == "Customer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                   <h6 class="mb-0">Full name: @userService.user.FullName</h6>
+                </div>
+                @if (CheckEdit)
+                {
+                    <div class="row align-items-center pt-4 pb-3">
+                        <input type="text" class="form-control form-control-lg" @bind-value="@FullName"/>
+                    </div>                                    
+                }
+            }
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+               <h6 class="mb-0">Email: @userService.user.Email</h6>
+            </div>   
+
+            @if (CheckEdit)
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <input type="text" class="form-control form-control-lg" @bind-value="@Email"/>
+                </div>                                    
+            } 
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+               <h6 class="mb-0">Phone Number: @userService.user.PhoneNumber</h6>
+            </div>  
+
+            @if (CheckEdit)
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <input type="text" class="form-control form-control-lg" @bind-value="@PhoneNumber"/>
+                </div>                                    
+            } 
+
+            <hr class="mx-n3">
+
+            <button type="submit" class="btn btn-primary btn-lg" @onclick="@DataEdit">@textButton</button>
+            <button type="submit" class="btn btn-primary btn-lg" @onclick="@Back">Back</button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+@code {
+    string FullName = "";
+    string Email = "";
+    string PhoneNumber = "";
+
+    bool CheckEdit;
+    string textButton = "Edit";
+
+    public void DataEdit()
+    {
+        if (!CheckEdit)
+        {
+            CheckEdit = true;
+            textButton = "Confirm";
+        }
+        else
+        {
+            CheckEdit = false;
+            textButton = "Edit";
+            if (FullName != "")
+            {
+                userService.user.FullName = FullName;
+            }
+            if (Email != "")
+            {
+                userService.user.Email = Email;
+            }
+            if (PhoneNumber != "")
+            {
+                userService.user.PhoneNumber = PhoneNumber;
+            }
+            MongoExamples.ReplaceByName(userService.user.Login, userService.user);
+        }
+    }
+
+    public void Back()
+    {
+        NavigationManager.NavigateTo("/profil");
+    }
+}
