@@ -2,9 +2,7 @@
 {
     public class UserService
     {
-        public Customer customer { get; set; }
-        public Designer designer { get; set; }
-        public Developer developer { get; set; }
+        public User user { get; set; }
         public bool authorizationCheck { get; set; }
     }
 }

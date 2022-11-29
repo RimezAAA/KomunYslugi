@@ -1,6 +1,7 @@
 ﻿@using KomunYslugi.Data
 @page "/registration"
-@inject UserService user
+@inject UserService userService
+@inject NavigationManager NavigationManager
 <section class="vh-100" style="background-color: #2779e2;">
   <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -8,7 +9,7 @@
 
         <h1 class="text-white mb-4">Registration</h1>
 
-        <form>
+        @*<form>*@
         <div class="card" style="border-radius: 15px;">
           <div class="card-body">
 
@@ -118,7 +119,7 @@
 
           </div>
         </div>
-        </form>
+        @*</form>*@
 
       </div>
     </div>
@@ -145,17 +146,23 @@
                 case "Customer":
                     if (fullname != string.Empty)
                     {
-                        user.customer = new Customer(fullname, email, Password, Login, PhoneNumber, Department);
-                        MongoExamples.AddToDB(user.customer);
+                        userService.user = new User(fullname, email, Password, Login, PhoneNumber, Department, selectStr);
+                        userService.authorizationCheck = true;
+                        MongoExamples.AddToDB(userService.user);
+                        NavigationManager.NavigateTo("/profil");
                     }
                     break;
                 case "Designer":
-                    user.designer = new Designer(email, Password, Login, PhoneNumber);
-                    MongoExamples.AddToDB(user.designer);
+                    userService.user = new User(email, Password, Login, PhoneNumber, selectStr);
+                    userService.authorizationCheck = true;
+                    MongoExamples.AddToDB(userService.user);
+                    NavigationManager.NavigateTo("/profil");
                     break;
                 case "Developer":
-                    user.developer = new Developer(email, Password, Login, PhoneNumber);
-                    MongoExamples.AddToDB(user.developer);
+                    userService.user = new User(email, Password, Login, PhoneNumber, selectStr);
+                    userService.authorizationCheck = true;
+                    MongoExamples.AddToDB(userService.user);
+                    NavigationManager.NavigateTo("/profil");
                     break;
             }
         }
