@@ -51,6 +51,7 @@ namespace KomunYslugi.Data
             PhoneNumber = phoneNumber;
             Department = department;
             UserType = userType;
+            IsCheck = true;
         }
 
         public User(string email, string password, string login, string phoneNumber, string userType)

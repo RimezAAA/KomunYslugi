@@ -1,0 +1,61 @@
+﻿@using KomunYslugi.Data
+@using MongoDB.Bson
+@page "/createProject"
+@inject UserService userService
+@inject ProjectService projectService
+@inject NavigationManager NavigationManager
+
+<section class="vh-100" style="background-color: #2779e2;">
+  <div class="container h-100">
+
+      <div class="row align-items-center pt-4 pb-3">
+        <h6 class="mb-0">Name project:</h6>
+        <input type="text" class="form-control form-control-lg" @bind-value="NameProject" />
+      </div>
+
+      <div class="row align-items-center pt-4 pb-3">
+        <h6 class="mb-0">Developer:</h6>
+        <select @bind="LoginDeveloper">
+            <option></option>
+            @foreach (var a in MongoExamples.FindListDeveloper())
+            {
+                <option value="@a.Login">@a.Login</option>
+            }
+         </select>
+      </div>
+
+      <hr class="mx-n3">
+
+      <div class="row align-items-center pt-4 pb-3">
+        <h6 class="mb-0">Designer:</h6>
+        <select @bind="LoginDesigner">
+            <option></option>
+            @foreach (var a in MongoExamples.FindListDesigner())
+            {
+                <option value="@a.Login">@a.Login</option>
+            }
+         </select>
+      </div>
+
+      <hr class="mx-n3">
+
+      <button type="submit" class="btn btn-primary btn-lg" @onclick="AddProject">Reg</button>
+      
+  </div>
+</section>
+
+@code {
+    string NameProject = "";
+    string LoginDeveloper = "";
+    string LoginDesigner = "";
+
+    private void AddProject()
+    {
+        if (NameProject != "" && LoginDeveloper != "" && LoginDesigner != "")
+        {
+            Project project = new Project(userService.user.Department, MongoExamples.Find(LoginDesigner), MongoExamples.Find(LoginDeveloper), userService.user, NameProject);
+            MongoExamples.AddToDBProject(project);
+            NavigationManager.NavigateTo("/customerProject");
+        }
+    }
+}

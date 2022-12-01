@@ -1,0 +1,36 @@
+﻿@using KomunYslugi.Data
+@page "/developerProject"
+@inject UserService userService
+@inject ProjectService projectService
+@inject NavigationManager NavigationManager
+
+<section class="vh-100" style="background-color: #2779e2;">
+  <div class="container h-100">
+
+      <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>btn</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in MongoExamples.GetProjectsDeveloper(userService.user))
+            {
+                <tr>
+                    <td>@project.Name</td>
+                    <td><button @onclick="(() => CheckProject(project))">Open</button></td>
+                </tr>
+            }
+        </tbody>
+      </table>
+  </div>
+</section>
+
+@code {
+    public void CheckProject(Project project)
+    {
+        projectService.Project = project;
+        NavigationManager.NavigateTo("/developerProjectOpen");
+    }
+}

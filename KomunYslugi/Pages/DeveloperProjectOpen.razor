@@ -1,0 +1,112 @@
+﻿@using BlazorInputFile
+@using KomunYslugi.Data
+@page "/developerProjectOpen"
+@inject UserService userService
+@inject ProjectService projectService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime jsRunTime
+
+<section class="vh-100" style="background-color: #2779e2;">
+  <div class="container h-100">
+
+      @if (projectService.Project.Department == "Газификация")
+      {
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Content</th>
+                    <th>File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var developerData in projectService.Project.DeveloperDataGas)
+                {
+                    <tr>
+                        <td>@developerData.Content</td>
+                        <td><BlazorInputFile.InputFile OnChange="@(e => HandledFileSelected(e, developerData.File))" /></td>
+                        @if (developerData.File.Id != null)
+                        {
+                            if (@MongoExamples.FindFiles(developerData.File.Id).Attachment != null)
+                            {
+                                <td>@MongoExamples.FindFiles(developerData.File.Id).Name</td>
+                                <td><button class="btn btn-danger" @onclick="@(e => Delete(@developerData.File.Id))">Delete PDF</button></td>
+                                if (@MongoExamples.FindFiles(developerData.File.Id).IsCheck)
+                                {
+                                    <td>☑</td>
+                                }
+                            }                         
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+      }
+      else if (projectService.Project.Department == "Водосноснобжение")
+      {
+          <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Content</th>
+                    <th>File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var developerData in projectService.Project.DeveloperDataWater)
+                {
+                    <tr>
+                        <td>@developerData.Content</td>
+                        <td><BlazorInputFile.InputFile OnChange="@(e => HandledFileSelected(e, developerData.File))" /></td>
+                        @if (developerData.File.Id != null)
+                        {
+                            if (@MongoExamples.FindFiles(developerData.File.Id).Attachment != null)
+                            {
+                                <td>@MongoExamples.FindFiles(developerData.File.Id).Name</td>
+                                <td><button class="btn btn-danger" @onclick="@(e => Delete(@developerData.File.Id))">Delete PDF</button></td>
+                            }                         
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+      }
+      <div class="px-5 py-4">
+        <button type="submit" class="btn btn-primary btn-lg" @onclick="Back">Back</button>
+      </div>
+      
+  </div>
+</section>
+
+@code {
+    public void Back()
+    {
+        NavigationManager.NavigateTo("/developerProject");
+    }
+    async void HandledFileSelected(IFileListEntry[] files, File fileData)
+    {
+        File file = new File();
+        var attach = await FileSender(files.FirstOrDefault());
+        var name = files.FirstOrDefault().Name;
+        file.Attachment = attach;
+        file.Name = name;
+        MongoExamples.Save(file);
+        fileData.Id = file.Id;
+        MongoExamples.ProjectReplace(projectService.Project);
+        NavigationManager.NavigateTo("/developerProject");
+        NavigationManager.NavigateTo("/developerProjectOpen");
+    }
+
+    public async Task<byte[]> FileSender(IFileListEntry file)
+    {
+        using ( var ms = new System.IO.MemoryStream())
+        {
+            await file.Data.CopyToAsync(ms);
+            return ms.ToArray();
+        }
+    }
+
+    private void Delete(string id)
+    {
+        MongoExamples.Delete(id);
+    }
+}

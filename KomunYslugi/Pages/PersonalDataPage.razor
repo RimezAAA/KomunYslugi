@@ -1,0 +1,101 @@
+﻿@using KomunYslugi.Data
+@page "/personalData"
+@inject UserService userService
+@inject NavigationManager NavigationManager
+
+<section class="vh-100" style="background-color: #2779e2;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-9">
+
+        <h1 class="text-white mb-4">Profil</h1>
+
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body">
+
+            @if (userService.user.UserType == "Developer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <h6 class="mb-0">Developer Name: @userService.user.DeveloperName</h6>
+                </div>                                  
+
+                <hr class="mx-n3">                            
+            }
+
+            @if (userService.user.UserType == "Developer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <h6 class="mb-0">Full Name Head: @userService.user.FullNameHead</h6>
+                </div>                                  
+
+                <hr class="mx-n3">                            
+            }
+
+            @if (userService.user.UserType == "Designer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <h6 class="mb-0">Designer Name: @userService.user.DesignerName</h6>
+                </div>                                  
+
+                <hr class="mx-n3">                            
+            }
+
+            @if (userService.user.UserType == "Designer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <h6 class="mb-0">Full Name Director: @userService.user.FullNameDirector</h6>
+                </div>                                   
+
+                <hr class="mx-n3">                            
+            }
+
+            @if (userService.user.UserType == "Designer")
+            {
+                <div class="row align-items-center pt-4 pb-3">
+                    <h6 class="mb-0">Chief Project Engineer: @userService.user.ChiefProjectEngineer</h6>
+                </div>                                  
+
+                <hr class="mx-n3">                            
+            }
+
+            <div class="row align-items-center pt-4 pb-3">
+                <h6 class="mb-0">OGRN: @userService.user.OGRN</h6>
+            </div>                               
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+                <h6 class="mb-0">INN: @userService.user.INN</h6>
+            </div>                                    
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+                <h6 class="mb-0">KPP: @userService.user.KPP</h6>
+            </div>                                   
+
+            <hr class="mx-n3">
+
+            <div class="row align-items-center pt-4 pb-3">
+                <h6 class="mb-0">Address: @userService.user.Address</h6>
+            </div>                                   
+
+            <hr class="mx-n3">                            
+            
+
+            <button type="submit" class="btn btn-primary btn-lg" @onclick="@Back">Back</button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+@code {
+    public void Back()
+    {
+        NavigationManager.NavigateTo("/profil");
+    }
+}
