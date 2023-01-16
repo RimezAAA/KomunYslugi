@@ -45,7 +45,7 @@
             <div class="px-5 py-4">
               <button type="submit" class="btn btn-primary btn-lg" @onclick="AuthorizationEvent">authorization</button>
             </div>
-
+            <h6>@erorrSttr</h6>
           </div>
         </div>
 
@@ -57,15 +57,24 @@
 @code {
     string Login = "";
     string Password = "";
+    User user;
 
-    public void AuthorizationEvent ()
+    string erorrSttr = "";
+    public async void AuthorizationEvent ()
     {
-        User user = MongoExamples.Find(Login);
+        erorrSttr = "Пользователь ищется!";
+        user = await MongoExamples.FindAsync(Login);
         if (user != null && user.Password == Password)
         {
             userService.user = user;
             userService.authorizationCheck = true;
             NavigationManager.NavigateTo("/profil");
         }
+        else
+        {
+            erorrSttr = "Пользователь не найден!";
+        }
+        
     }
+
 }
