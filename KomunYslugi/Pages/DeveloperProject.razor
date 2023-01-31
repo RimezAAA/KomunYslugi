@@ -3,6 +3,7 @@
 @inject UserService userService
 @inject ProjectService projectService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime jsRunTime
 
 <section class="vh-100" style="background-color: #2779e2;">
   <div class="container h-100">
@@ -19,11 +20,27 @@
             {
                 <tr>
                     <td>@project.Name</td>
-                    <td><button @onclick="(() => CheckProject(project))">Open</button></td>
+                    <td><button @onclick="(() => CheckProject(project))">Open</button><button class="open-button" @onclick="(()=>openForm(project))">Chat</button></td>
                 </tr>
             }
         </tbody>
       </table>
+  </div>
+
+  <div class="chat-popup" id="myForm">
+  <form class="form-container">
+    <h1>Чат</h1>
+
+    <div id="messages" style="height: 200px; overflow:auto;width:100%;">
+        
+    </div>
+
+    <label for="msg"><b>Сообщение</b></label>
+    <textarea placeholder="сообщения.." name="msg" id="msg"></textarea>
+
+    <button type="button" class="btn" id="sendBtn" @onclick="SendJsInvoke">Отправить</button>
+    <button type="button" class="btn cancel" @onclick="(()=>closeForm())">Закрыть</button>
+  </form>
   </div>
 </section>
 
@@ -32,5 +49,20 @@
     {
         projectService.Project = project;
         NavigationManager.NavigateTo("/developerProjectOpen");
+    }
+
+    public void openForm(Project project)
+    {
+        jsRunTime.InvokeVoidAsync("openForm", project.developer.Email);
+    }
+
+    public void closeForm()
+    {
+        jsRunTime.InvokeVoidAsync("closeForm");
+    }
+
+    public void SendJsInvoke()
+    {
+        jsRunTime.InvokeVoidAsync("Send");
     }
 }

@@ -1,3 +1,4 @@
+using KomunYslugi;
 using KomunYslugi.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -9,6 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<ProjectService>();
+builder.Services.AddSignalR();      // подключема сервисы SignalR
 
 var app = builder.Build();
 
@@ -20,6 +22,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseDefaultFiles();
+app.MapHub<ChatHub>("/chat");   // ChatHub будет обрабатывать запросы по пути /chat
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
@@ -28,5 +33,6 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
 
 app.Run();
