@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KomunYslugi", "KomunYslugi\KomunYslugi.csproj", "{030D267B-6A63-430D-A7CA-F8779262782F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatCustomer", "ChatCustomer\ChatCustomer.csproj", "{37E025F1-9B6A-4DF0-A70E-DDAA2428BFB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chatikCustomer", "chatikCustomer\chatikCustomer.csproj", "{3C135051-8E6E-40C7-BCB5-393CA9B2C31B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{030D267B-6A63-430D-A7CA-F8779262782F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{030D267B-6A63-430D-A7CA-F8779262782F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{030D267B-6A63-430D-A7CA-F8779262782F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37E025F1-9B6A-4DF0-A70E-DDAA2428BFB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37E025F1-9B6A-4DF0-A70E-DDAA2428BFB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37E025F1-9B6A-4DF0-A70E-DDAA2428BFB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37E025F1-9B6A-4DF0-A70E-DDAA2428BFB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C135051-8E6E-40C7-BCB5-393CA9B2C31B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C135051-8E6E-40C7-BCB5-393CA9B2C31B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C135051-8E6E-40C7-BCB5-393CA9B2C31B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C135051-8E6E-40C7-BCB5-393CA9B2C31B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

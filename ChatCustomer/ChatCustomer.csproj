@@ -220,5 +220,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KomunYslugi\KomunYslugi.csproj">
+      <Project>{030d267b-6a63-430d-a7ca-f8779262782f}</Project>
+      <Name>KomunYslugi</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
