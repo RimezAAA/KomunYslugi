@@ -52,7 +52,7 @@
 
     public void openForm(Project project)
     {
-        jsRunTime.InvokeVoidAsync("openForm", project.developer.Email);
+        jsRunTime.InvokeVoidAsync("openForm", project.developer.Email, project.customer._id.ToString(), project._id.ToString());
     }
 
     public void closeForm()

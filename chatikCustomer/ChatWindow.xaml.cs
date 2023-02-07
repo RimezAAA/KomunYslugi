@@ -31,7 +31,7 @@ namespace chatikCustomer
             InitializeComponent();
             // создаем подключение к хабу
             connection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:7161/c3hat")
+                .WithUrl("https://localhost:7161/chat")
                 .Build();
 
 
@@ -40,7 +40,7 @@ namespace chatikCustomer
             {
                 Dispatcher.Invoke(() =>
                 {//доделать
-                    if (this.user._id.ToString() == recipient_id && (project.designer._id.ToString() == sender_id || project.developer._id.ToString() == sender_id))
+                    if (this.user._id.ToString() == recipient_id && this.project._id.ToString()==sender_id)
                     {
                         var newMessage = $"{user}: {message}";
                         chatbox.Items.Insert(0, newMessage);
@@ -70,12 +70,19 @@ namespace chatikCustomer
             try
             {
                 // отправка сообщения
-                await connection.InvokeAsync("Send", messageTextBox.Text, userTextBox.Text);
+                await connection.InvokeAsync("Send", messageTextBox.Text, user.Email, user._id.ToString(), project._id.ToString());
             }
             catch (Exception ex)
             {
                 chatbox.Items.Add(ex.Message);
             }
+        }
+
+        private void backBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ListProjectsWindow listProjectsWindow = new ListProjectsWindow(user);
+            listProjectsWindow.Show();
+            this.Close();
         }
     }
 }

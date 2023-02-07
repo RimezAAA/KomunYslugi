@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="300" Loaded="Window_Loaded">
     <StackPanel Margin="4">
-        <Label Content="Введите логин"/>
-        <TextBox x:Name="userTextBox" />
+        <Button x:Name="backBtn" Content="Back" HorizontalAlignment="Left" Click="backBtn_Click"></Button>
         <Label Content="Введите сообщение"/>
         <TextBox x:Name="messageTextBox" />
         <Button x:Name="sendBtn" Content="Отправить" Click="Button_Click" IsEnabled="False" />
